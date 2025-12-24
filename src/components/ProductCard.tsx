@@ -1,14 +1,28 @@
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
+  id: number;
   image: string;
   name: string;
   price: number;
   category: string;
 }
 
-const ProductCard = ({ image, name, price, category }: ProductCardProps) => {
+const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addToCart({ id, image, name, price, category });
+    toast({
+      title: "Added to cart",
+      description: `${name} has been added to your cart.`,
+    });
+  };
+
   return (
     <div className="group cursor-pointer">
       <div className="relative overflow-hidden rounded-lg bg-muted aspect-[3/4]">
@@ -21,6 +35,7 @@ const ProductCard = ({ image, name, price, category }: ProductCardProps) => {
         <Button
           size="sm"
           className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+          onClick={handleAddToCart}
         >
           <ShoppingBag className="h-4 w-4 mr-2" />
           Add to Cart
