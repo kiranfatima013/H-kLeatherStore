@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { products, Product } from "@/data/products";
+import { products, Product, formatPrice } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,7 +17,7 @@ import { Filter, X } from "lucide-react";
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 60000]);
   const [showFilters, setShowFilters] = useState(false);
 
   // Get unique categories
@@ -132,8 +132,8 @@ const Products = () => {
                   />
                 </div>
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+                  <span>{formatPrice(priceRange[0])}</span>
+                  <span>{formatPrice(priceRange[1])}</span>
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { ShoppingBag, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { getProductById, getRelatedProducts } from "@/data/products";
+import { getProductById, getRelatedProducts, formatPrice } from "@/data/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -101,7 +101,7 @@ const ProductDetail = () => {
                 {product.name}
               </h1>
               <p className="text-2xl text-primary font-semibold mb-6">
-                ${product.price.toFixed(2)}
+                {formatPrice(product.price)}
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-8">
@@ -144,7 +144,7 @@ const ProductDetail = () => {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Premium quality leather</li>
                   <li>• Handcrafted with attention to detail</li>
-                  <li>• Free shipping on orders over $100</li>
+                  <li>• Free shipping on orders over PKR 10,000</li>
                   <li>• 30-day return policy</li>
                 </ul>
               </div>
