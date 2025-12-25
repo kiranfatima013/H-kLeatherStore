@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="bg-primary text-primary-foreground">
+  return <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-serif font-bold">ARTISAN</span>
+              <span className="text-xl font-serif font-bold">Hassan's Store </span>
               <span className="text-sm font-light tracking-widest opacity-80">LEATHER</span>
             </Link>
             <p className="text-sm opacity-80 leading-relaxed">
@@ -33,16 +31,11 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {["Shop All", "Jackets", "Wallets", "New Arrivals", "Sale"].map((item) => (
-                <li key={item}>
-                  <Link
-                    to="#"
-                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  >
+              {["Shop All", "Jackets", "Wallets", "New Arrivals", "Sale"].map(item => <li key={item}>
+                  <Link to="#" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
                     {item}
                   </Link>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
 
@@ -50,16 +43,11 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-2">
-              {["Contact Us", "FAQs", "Shipping Info", "Returns", "Size Guide"].map((item) => (
-                <li key={item}>
-                  <Link
-                    to="#"
-                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  >
+              {["Contact Us", "FAQs", "Shipping Info", "Returns", "Size Guide"].map(item => <li key={item}>
+                  <Link to="#" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
                     {item}
                   </Link>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
 
@@ -89,8 +77,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
