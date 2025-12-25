@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
@@ -15,7 +16,9 @@ const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => 
   const { addToCart } = useCart();
   const { toast } = useToast();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     addToCart({ id, image, name, price, category });
     toast({
       title: "Added to cart",
@@ -24,7 +27,7 @@ const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => 
   };
 
   return (
-    <div className="group cursor-pointer">
+    <Link to={`/product/${id}`} className="group block">
       <div className="relative overflow-hidden rounded-lg bg-muted aspect-[3/4]">
         <img
           src={image}
@@ -46,7 +49,7 @@ const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => 
         <h3 className="font-medium text-foreground">{name}</h3>
         <p className="text-primary font-semibold">${price.toFixed(2)}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,39 +1,5 @@
 import ProductCard from "./ProductCard";
-import leatherJacket1 from "@/assets/leather-jacket-1.jpg";
-import leatherJacket2 from "@/assets/leather-jacket-2.jpg";
-import leatherWallet1 from "@/assets/leather-wallet-1.jpg";
-import leatherWallet2 from "@/assets/leather-wallet-2.jpg";
-
-const products = [
-  {
-    id: 1,
-    image: leatherJacket1,
-    name: "Classic Brown Leather Jacket",
-    price: 349.99,
-    category: "Jackets",
-  },
-  {
-    id: 2,
-    image: leatherJacket2,
-    name: "Black Biker Jacket",
-    price: 429.99,
-    category: "Jackets",
-  },
-  {
-    id: 3,
-    image: leatherWallet1,
-    name: "Bifold Leather Wallet",
-    price: 89.99,
-    category: "Wallets",
-  },
-  {
-    id: 4,
-    image: leatherWallet2,
-    name: "Slim Cardholder",
-    price: 59.99,
-    category: "Wallets",
-  },
-];
+import { products } from "@/data/products";
 
 const FeaturedProducts = () => {
   return (
