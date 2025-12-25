@@ -3,6 +3,7 @@ import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import { formatPrice } from "@/data/products";
 
 interface ProductCardProps {
   id: number;
@@ -47,7 +48,7 @@ const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => 
       <div className="mt-4 space-y-1">
         <p className="text-xs text-muted-foreground uppercase tracking-wider">{category}</p>
         <h3 className="font-medium text-foreground">{name}</h3>
-        <p className="text-primary font-semibold">${price.toFixed(2)}</p>
+        <p className="text-primary font-semibold">{formatPrice(price)}</p>
       </div>
     </Link>
   );
