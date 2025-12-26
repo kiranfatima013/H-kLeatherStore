@@ -28,10 +28,10 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <span className="text-xl md:text-2xl font-serif font-bold text-primary">
-              Hassan's Store 
+              H & K
             </span>
             <span className="text-sm md:text-base font-light text-muted-foreground tracking-widest">
-              LEATHER
+              LEATHER CRAFTS
             </span>
           </Link>
 

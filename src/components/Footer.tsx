@@ -7,8 +7,8 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-serif font-bold">Hassan's Store </span>
-              <span className="text-sm font-light tracking-widest opacity-80">LEATHER</span>
+              <span className="text-xl font-serif font-bold">H & K</span>
+              <span className="text-sm font-light tracking-widest opacity-80">LEATHER CRAFTS</span>
             </Link>
             <p className="text-sm opacity-80 leading-relaxed">
               Handcrafted leather goods made with passion and precision. 
@@ -31,11 +31,26 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {["Shop All", "Jackets", "Wallets", "New Arrivals", "Sale"].map(item => <li key={item}>
-                  <Link to="#" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {item}
-                  </Link>
-                </li>)}
+              <li>
+                <Link to="/products" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Shop All
+                </Link>
+              </li>
+              <li>
+                <Link to="/products?category=Jackets" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Jackets
+                </Link>
+              </li>
+              <li>
+                <Link to="/products?category=Wallets" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Wallets
+                </Link>
+              </li>
+              <li>
+                <Link to="/products?category=Bags" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Bags
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -43,11 +58,21 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-2">
-              {["Contact Us", "FAQs", "Shipping Info", "Returns", "Size Guide"].map(item => <li key={item}>
-                  <Link to="#" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                    {item}
-                  </Link>
-                </li>)}
+              <li>
+                <Link to="/contact" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/cart" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Shopping Cart
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -57,15 +82,15 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm opacity-80">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>123 Leather Lane, Craft City, CC 12345</span>
+                <span>123 Leather Street, Gulberg III, Lahore, Pakistan</span>
               </li>
               <li className="flex items-center gap-3 text-sm opacity-80">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <span>+92 300 1234567</span>
               </li>
               <li className="flex items-center gap-3 text-sm opacity-80">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>hello@artisanleather.com</span>
+                <span>info@hkleathercrafts.pk</span>
               </li>
             </ul>
           </div>
@@ -73,7 +98,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center">
           <p className="text-sm opacity-60">
-            © 2024 Artisan Leather. All rights reserved.
+            © 2024 H & K Leather Crafts. All rights reserved.
           </p>
         </div>
       </div>
