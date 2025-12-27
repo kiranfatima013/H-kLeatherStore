@@ -2,20 +2,56 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { newsletterSchema } from "@/lib/validations";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      toast({
-        title: "Welcome to our community!",
-        description: "You'll receive exclusive offers and updates.",
-      });
-      setEmail("");
+    setError("");
+
+    // Validate email
+    const result = newsletterSchema.safeParse({ email });
+    if (!result.success) {
+      setError(result.error.errors[0]?.message || "Invalid email");
+      return;
     }
+
+    setIsSubmitting(true);
+
+    const { error: dbError } = await supabase
+      .from("newsletter_subscriptions")
+      .insert({ email: result.data.email });
+
+    setIsSubmitting(false);
+
+    if (dbError) {
+      if (dbError.code === "23505") {
+        // Unique constraint violation
+        toast({
+          title: "Already subscribed",
+          description: "This email is already on our mailing list.",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      }
+      return;
+    }
+
+    toast({
+      title: "Welcome to our community!",
+      description: "You'll receive exclusive offers and updates.",
+    });
+    setEmail("");
   };
 
   return (
@@ -30,18 +66,25 @@ const NewsletterSection = () => {
             and stories from our workshop.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
-            />
+            <div className="flex-1">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                }}
+                className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+              />
+              {error && <p className="text-sm mt-1 text-destructive-foreground opacity-90">{error}</p>}
+            </div>
             <Button 
               type="submit" 
               className="bg-accent text-accent-foreground hover:bg-accent/90 whitespace-nowrap"
+              disabled={isSubmitting}
             >
-              Subscribe
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
             </Button>
           </form>
         </div>
