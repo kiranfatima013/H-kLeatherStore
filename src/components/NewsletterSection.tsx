@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { newsletterSchema } from "@/lib/validations";
 
-const NewsletterSection = () => {
+const NewsletterSection = forwardRef<HTMLElement>((_, ref) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -55,7 +55,7 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+    <section ref={ref} className="py-16 md:py-24 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -91,6 +91,8 @@ const NewsletterSection = () => {
       </div>
     </section>
   );
-};
+});
+
+NewsletterSection.displayName = "NewsletterSection";
 
 export default NewsletterSection;
