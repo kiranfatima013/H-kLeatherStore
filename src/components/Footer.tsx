@@ -1,7 +1,9 @@
+import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react";
-const Footer = () => {
-  return <footer className="bg-primary text-primary-foreground">
+
+const Footer = forwardRef<HTMLElement>((_, ref) => {
+  return <footer ref={ref} className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
@@ -103,5 +105,8 @@ const Footer = () => {
         </div>
       </div>
     </footer>;
-};
+});
+
+Footer.displayName = "Footer";
+
 export default Footer;
