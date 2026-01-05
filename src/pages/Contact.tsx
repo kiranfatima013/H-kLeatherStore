@@ -82,7 +82,7 @@ const Contact = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-primary text-primary-foreground py-16 md:py-24">
+        <section className="bg-primary text-primary-foreground py-12 md:py-16">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
               Contact Us
@@ -94,7 +94,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Content */}
-        <section className="py-16 md:py-24">
+        <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12">
               {/* Contact Form */}
@@ -102,7 +102,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-serif font-bold text-foreground mb-6">
                   Send us a Message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
                     <Input
@@ -145,11 +145,11 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="How can we help you?"
-                      rows={5}
+                      rows={3}
                     />
                     {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                   </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button type="submit" className="w-full mt-4" disabled={isSubmitting}>
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
