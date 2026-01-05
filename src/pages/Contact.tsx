@@ -102,7 +102,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-serif font-bold text-foreground mb-6">
                   Send us a Message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 pb-20">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
                     <Input
@@ -149,9 +149,11 @@ const Contact = () => {
                     />
                     {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                   </div>
-                  <Button type="submit" className="w-full mt-4" disabled={isSubmitting}>
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
+                  <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border md:relative md:p-0 md:bg-transparent md:border-0">
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </div>
                 </form>
               </div>
 
