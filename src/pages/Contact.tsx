@@ -168,8 +168,8 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Address</h3>
                       <p className="text-muted-foreground">
-                        123 Leather Street, Gulberg III<br />
-                        Lahore, Punjab, Pakistan
+                        Garden East, Karachi<br />
+                        Sindh, Pakistan
                       </p>
                     </div>
                   </div>

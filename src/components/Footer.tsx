@@ -84,7 +84,7 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm opacity-80">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>123 Leather Street, Gulberg III, Lahore, Pakistan</span>
+                <span>Garden East, Karachi, Pakistan</span>
               </li>
               <li className="flex items-center gap-3 text-sm opacity-80">
                 <Phone className="h-4 w-4 flex-shrink-0" />
