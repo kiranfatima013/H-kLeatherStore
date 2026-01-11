@@ -12,22 +12,18 @@ declare global {
   }
 }
 
+const PUBLIC_KEY = "07e79bcb-2fca-41c0-b8f6-ad0ecc0d4410";
+const SQUAD_ID = "74dba3e7-8b4c-4d6b-aa46-9285851a4b72";
+
 const VapiWidget = () => {
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_VAPI_PUBLIC_KEY;
-    const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID;
-
-    if (!apiKey || !assistantId) {
-      console.warn('Vapi: Missing API key or Assistant ID');
-      return;
-    }
 
     const initVapi = () => {
       if (window.vapiSDK) {
         console.log('Vapi SDK found, initializing...');
         window.vapiSDK.run({
-          apiKey: apiKey,
-          assistant: assistantId,
+          apiKey: PUBLIC_KEY,
+          assistant: SQUAD_ID,
           config: {
             position: 'bottom-right',
             offset: '20px',
