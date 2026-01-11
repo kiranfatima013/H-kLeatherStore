@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import CartSheet from "@/components/CartSheet";
+import VapiWidget from "@/components/VapiWidget";
 import Index from "./pages/Index";
 import ProductDetail from "./pages/ProductDetail";
 import Products from "./pages/Products";
@@ -27,6 +28,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <CartSheet />
+          <VapiWidget />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
