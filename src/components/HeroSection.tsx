@@ -33,7 +33,11 @@ const HeroSection = () => {
               Shop Collection
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-card text-card hover:bg-card/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-2 border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+            >
               Our Story
             </Button>
           </div>

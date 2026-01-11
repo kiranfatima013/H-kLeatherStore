@@ -2,30 +2,11 @@ import { useEffect } from 'react';
 
 declare global {
   interface Window {
-    vapiWidget?: {
+    vapiSDK?: {
       run: (config: {
         apiKey: string;
         assistant: string;
-        config?: {
-          position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-          offset?: string;
-          width?: string;
-          height?: string;
-          idle?: {
-            color?: string;
-            type?: 'pill' | 'round';
-            title?: string;
-            subtitle?: string;
-            icon?: string;
-          };
-          active?: {
-            color?: string;
-            type?: 'pill' | 'round';
-            title?: string;
-            subtitle?: string;
-            icon?: string;
-          };
-        };
+        config?: Record<string, unknown>;
       }) => void;
     };
   }
@@ -33,48 +14,65 @@ declare global {
 
 const VapiWidget = () => {
   useEffect(() => {
+    const apiKey = import.meta.env.VITE_VAPI_PUBLIC_KEY;
+    const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID;
+
+    if (!apiKey || !assistantId) {
+      console.warn('Vapi: Missing API key or Assistant ID');
+      return;
+    }
+
     const initVapi = () => {
-      if (window.vapiWidget) {
-        window.vapiWidget.run({
-          apiKey: import.meta.env.VITE_VAPI_PUBLIC_KEY || '',
-          assistant: import.meta.env.VITE_VAPI_ASSISTANT_ID || '',
+      if (window.vapiSDK) {
+        console.log('Vapi SDK found, initializing...');
+        window.vapiSDK.run({
+          apiKey: apiKey,
+          assistant: assistantId,
           config: {
             position: 'bottom-right',
             offset: '20px',
-            width: '60px',
-            height: '60px',
             idle: {
-              color: 'hsl(25, 77%, 27%)',
+              color: 'rgb(139, 69, 19)',
               type: 'pill',
-              title: 'Chat with us',
+              title: 'Talk to us',
               subtitle: 'We are here to help!',
-              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/message-circle.svg',
+              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/headphones.svg',
             },
             active: {
-              color: 'hsl(25, 77%, 20%)',
-              type: 'pill',
+              color: 'rgb(101, 50, 13)',
+              type: 'pill', 
               title: 'Call in progress...',
               subtitle: 'Tap to end call',
               icon: 'https://unpkg.com/lucide-static@0.321.0/icons/phone.svg',
             },
           },
         });
+      } else {
+        console.warn('Vapi SDK not found on window');
       }
     };
 
     // Wait for the script to load
-    if (window.vapiWidget) {
+    if (window.vapiSDK) {
       initVapi();
     } else {
       const checkInterval = setInterval(() => {
-        if (window.vapiWidget) {
+        if (window.vapiSDK) {
           initVapi();
           clearInterval(checkInterval);
         }
-      }, 100);
+      }, 200);
 
-      // Clean up after 10 seconds if widget never loads
-      setTimeout(() => clearInterval(checkInterval), 10000);
+      // Clean up after 15 seconds if widget never loads
+      const timeout = setTimeout(() => {
+        clearInterval(checkInterval);
+        console.warn('Vapi SDK failed to load within 15 seconds');
+      }, 15000);
+
+      return () => {
+        clearInterval(checkInterval);
+        clearTimeout(timeout);
+      };
     }
   }, []);
 
