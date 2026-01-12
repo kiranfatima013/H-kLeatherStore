@@ -26,20 +26,20 @@ const VapiWidget = () => {
           assistant: SQUAD_ID,
           config: {
             position: 'bottom-right',
-            offset: '24px',
+            offset: '20px',
             idle: {
-              color: 'rgb(92, 64, 51)',
+              color: 'rgb(139, 69, 19)',
               type: 'pill',
-              title: 'H&K Leather Support',
-              subtitle: 'Ask about our craftsmanship',
-              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/message-circle.svg',
+              title: 'Talk to us',
+              subtitle: 'We are here to help!',
+              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/headphones.svg',
             },
             active: {
-              color: 'rgb(180, 83, 9)',
+              color: 'rgb(101, 50, 13)',
               type: 'pill', 
-              title: 'Speaking with H&K...',
+              title: 'Call in progress...',
               subtitle: 'Tap to end call',
-              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/phone-call.svg',
+              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/phone.svg',
             },
           },
         });
