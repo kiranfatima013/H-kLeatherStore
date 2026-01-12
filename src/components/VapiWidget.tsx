@@ -34,6 +34,13 @@ const VapiWidget = () => {
               subtitle: 'We are here to help!',
               icon: 'https://unpkg.com/lucide-static@0.321.0/icons/headphones.svg',
             },
+            loading: {
+              color: 'rgb(120, 60, 15)',
+              type: 'pill',
+              title: 'Connecting...',
+              subtitle: 'Please wait',
+              icon: 'https://unpkg.com/lucide-static@0.321.0/icons/loader.svg',
+            },
             active: {
               color: 'rgb(101, 50, 13)',
               type: 'pill', 
