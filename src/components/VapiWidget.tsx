@@ -17,6 +17,20 @@ const SQUAD_ID = "74dba3e7-8b4c-4d6b-aa46-9285851a4b72";
 
 const VapiWidget = () => {
   useEffect(() => {
+    // Add custom CSS to ensure fixed positioning
+    const style = document.createElement('style');
+    style.textContent = `
+      #vapi-widget-container,
+      [data-vapi-widget],
+      .vapi-btn,
+      div[style*="position: fixed"][style*="bottom"] {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        z-index: 9999 !important;
+      }
+    `;
+    document.head.appendChild(style);
 
     const initVapi = () => {
       if (window.vapiSDK) {
@@ -75,8 +89,13 @@ const VapiWidget = () => {
       return () => {
         clearInterval(checkInterval);
         clearTimeout(timeout);
+        style.remove();
       };
     }
+
+    return () => {
+      style.remove();
+    };
   }, []);
 
   return null;
