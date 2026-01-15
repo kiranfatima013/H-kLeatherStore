@@ -2,6 +2,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { formatPrice } from "@/data/products";
+import { Link } from "react-router-dom";
 
 const CartSheet = () => {
   const { items, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
@@ -37,7 +39,7 @@ const CartSheet = () => {
                       {item.category}
                     </p>
                     <h4 className="font-medium text-foreground truncate">{item.name}</h4>
-                    <p className="text-primary font-semibold">${item.price.toFixed(2)}</p>
+                    <p className="text-primary font-semibold">{formatPrice(item.price)}</p>
                     
                     <div className="flex items-center gap-2 mt-2">
                       <Button
@@ -74,10 +76,10 @@ const CartSheet = () => {
             <div className="border-t border-border pt-4 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span className="text-xl font-bold text-foreground">${totalPrice.toFixed(2)}</span>
+                <span className="text-xl font-bold text-foreground">{formatPrice(totalPrice)}</span>
               </div>
-              <Button className="w-full" size="lg">
-                Checkout
+              <Button className="w-full" size="lg" asChild onClick={() => setIsCartOpen(false)}>
+                <Link to="/checkout">Checkout</Link>
               </Button>
               <Button variant="outline" className="w-full" onClick={clearCart}>
                 Clear Cart
