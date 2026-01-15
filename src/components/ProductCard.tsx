@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { formatPrice } from "@/data/products";
+import { usePendingCartItem } from "@/hooks/usePendingCartItem";
 
 interface ProductCardProps {
   id: number;
@@ -15,12 +17,29 @@ interface ProductCardProps {
 
 const ProductCard = ({ id, image, name, price, category }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const { user } = useAuth();
   const { toast } = useToast();
+  const { setPendingItem } = usePendingCartItem();
+  const navigate = useNavigate();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart({ id, image, name, price, category });
+
+    const item = { id, image, name, price, category };
+
+    if (!user) {
+      // Store pending item and redirect to login
+      setPendingItem(item);
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to add items to your cart.",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    addToCart(item);
     toast({
       title: "Added to cart",
       description: `${name} has been added to your cart.`,
