@@ -100,7 +100,7 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center">
           <p className="text-sm opacity-60">
-            © 2024 H & K Leather Crafts. All rights reserved.
+            © 2026 H & K Leather Crafts. All rights reserved.
           </p>
         </div>
       </div>
