@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,11 +9,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { authSchema } from "@/lib/validations";
+import { useCart } from "@/contexts/CartContext";
+import { usePendingCartItem } from "@/hooks/usePendingCartItem";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user, loading } = useAuth();
+  const { addToCart } = useCart();
+  const { pendingItem, clearPendingItem } = usePendingCartItem();
+
+  // Redirect logged-in users away from auth page
+  useEffect(() => {
+    if (!loading && user) {
+      // If there's a pending item, add it to cart
+      if (pendingItem) {
+        addToCart(pendingItem);
+        toast({
+          title: "Added to cart",
+          description: `${pendingItem.name} has been added to your cart.`,
+        });
+        clearPendingItem();
+      }
+      navigate("/");
+    }
+  }, [user, loading, navigate, pendingItem, addToCart, clearPendingItem, toast]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   
@@ -49,13 +69,8 @@ const Auth = () => {
         description: error.message,
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Welcome back!",
-        description: "You have successfully logged in.",
-      });
-      navigate("/");
     }
+    // Redirect is handled by useEffect when user state changes
   };
 
   const handleSignup = async (e: React.FormEvent) => {

@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ShoppingBag, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { getProductById, getRelatedProducts, formatPrice } from "@/data/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import { usePendingCartItem } from "@/hooks/usePendingCartItem";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const { addToCart } = useCart();
+  const { user } = useAuth();
   const { toast } = useToast();
+  const { setPendingItem } = usePendingCartItem();
+  const navigate = useNavigate();
 
   const product = id ? getProductById(parseInt(id)) : undefined;
   const relatedProducts = id ? getRelatedProducts(parseInt(id), 4) : [];
@@ -50,14 +55,26 @@ const ProductDetail = () => {
       return;
     }
 
-    addToCart({
+    const item = {
       id: product.id,
       image: product.image,
       name: product.name,
       price: product.price,
       category: product.category,
-    });
+    };
 
+    if (!user) {
+      // Store pending item and redirect to login
+      setPendingItem(item);
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to add items to your cart.",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    addToCart(item);
     toast({
       title: "Added to cart",
       description: `${product.name}${selectedSize ? ` (${selectedSize})` : ""} has been added to your cart.`,
