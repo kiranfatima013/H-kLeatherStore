@@ -27,9 +27,9 @@ const App = () => (
         <CartProvider>
           <Toaster />
           <Sonner />
-          <CartSheet />
-          <VapiWidget />
           <BrowserRouter>
+            <CartSheet />
+            <VapiWidget />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/products" element={<Products />} />
