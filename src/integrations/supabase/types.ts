@@ -89,33 +89,33 @@ export type Database = {
       order_items: {
         Row: {
           created_at: string
-          id: string
           order_id: string
           product_image: string | null
           product_name: string
           quantity: number
           unit_price: number
           user_email: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string
-          id?: string
           order_id: string
           product_image?: string | null
           product_name: string
           quantity: number
           unit_price: number
           user_email?: string | null
+          user_id?: string
         }
         Update: {
           created_at?: string
-          id?: string
           order_id?: string
           product_image?: string | null
           product_name?: string
           quantity?: number
           unit_price?: number
           user_email?: string | null
+          user_id?: string
         }
         Relationships: [
           {
