@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-leather.jpg";
 
 const HeroSection = () => {
@@ -29,16 +30,19 @@ const HeroSection = () => {
             meticulously crafted by skilled artisans using traditional techniques.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              Shop Collection
-              <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
+              <Link to="/products">
+                Shop Collection
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="border-2 border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+              asChild
             >
-              Our Story
+              <Link to="/about">Our Story</Link>
             </Button>
           </div>
         </div>
