@@ -61,6 +61,7 @@ const ProductDetail = () => {
       name: product.name,
       price: product.price,
       category: product.category,
+      size: selectedSize || undefined,
     };
 
     if (!user) {
@@ -77,7 +78,7 @@ const ProductDetail = () => {
     addToCart(item);
     toast({
       title: "Added to cart",
-      description: `${product.name}${selectedSize ? ` (${selectedSize})` : ""} has been added to your cart.`,
+      description: `${product.name}${selectedSize ? ` (Size: ${selectedSize})` : ""} has been added to your cart.`,
     });
   };
 

@@ -130,7 +130,7 @@ const Checkout = () => {
     // Create order items
     const orderItems = items.map((item) => ({
       order_id: order.id,
-      product_name: item.name,
+      product_name: item.size ? `${item.name} (Size: ${item.size})` : item.name,
       product_image: item.image,
       quantity: item.quantity,
       unit_price: item.price,
@@ -170,7 +170,7 @@ const Checkout = () => {
 
     clearCart();
     setIsSubmitting(false);
-    navigate("/");
+    navigate(`/order-confirmation?order=${order.id}`);
   };
 
   if (authLoading) {
@@ -376,22 +376,28 @@ const Checkout = () => {
                   </h2>
                   
                   <div className="space-y-3 mb-6">
-                    {items.map((item) => (
-                      <div key={item.id} className="flex gap-3">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-16 object-cover rounded-md"
-                        />
-                        <div className="flex-1">
-                          <p className="font-medium text-foreground text-sm">{item.name}</p>
-                          <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
-                          <p className="text-sm font-medium text-foreground">
-                            {formatPrice(item.price * item.quantity)}
-                          </p>
+                    {items.map((item) => {
+                      const itemKey = `${item.id}-${item.size || "default"}`;
+                      return (
+                        <div key={itemKey} className="flex gap-3">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-16 h-16 object-cover rounded-md"
+                          />
+                          <div className="flex-1">
+                            <p className="font-medium text-foreground text-sm">{item.name}</p>
+                            {item.size && (
+                              <p className="text-xs text-muted-foreground">Size: {item.size}</p>
+                            )}
+                            <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                            <p className="text-sm font-medium text-foreground">
+                              {formatPrice(item.price * item.quantity)}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   <div className="space-y-3 border-t border-border pt-4 mb-6">

@@ -6,6 +6,7 @@ interface CartItemPayload {
   name: string;
   price: number;
   category: string;
+  size?: string;
 }
 
 interface PendingCartItemStore {
