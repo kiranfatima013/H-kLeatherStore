@@ -1,6 +1,6 @@
 import { useState, useEffect, forwardRef } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingBag, Menu, X, User, Shield, LogOut } from "lucide-react";
+import { ShoppingBag, Menu, X, User, Shield, LogOut, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -87,6 +87,12 @@ const Header = forwardRef<HTMLElement>((_, ref) => {
                     {user.email}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/my-orders" className="flex items-center gap-2">
+                      <Package className="h-4 w-4" />
+                      My Orders
+                    </Link>
+                  </DropdownMenuItem>
                   {isAdmin && (
                     <DropdownMenuItem asChild>
                       <Link to="/admin" className="flex items-center gap-2">
@@ -150,6 +156,13 @@ const Header = forwardRef<HTMLElement>((_, ref) => {
             ))}
             {user ? (
               <>
+                <Link
+                  to="/my-orders"
+                  className="block py-3 text-foreground/80 hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Orders
+                </Link>
                 {isAdmin && (
                   <Link
                     to="/admin"

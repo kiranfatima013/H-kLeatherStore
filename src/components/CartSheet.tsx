@@ -27,50 +27,56 @@ const CartSheet = () => {
         ) : (
           <>
             <div className="flex-1 overflow-auto py-4 space-y-4">
-              {items.map((item) => (
-                <div key={item.id} className="flex gap-4 p-3 bg-muted/50 rounded-lg">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-20 h-20 object-cover rounded-md"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {item.category}
-                    </p>
-                    <h4 className="font-medium text-foreground truncate">{item.name}</h4>
-                    <p className="text-primary font-semibold">{formatPrice(item.price)}</p>
-                    
-                    <div className="flex items-center gap-2 mt-2">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      >
-                        <Minus className="h-3 w-3" />
-                      </Button>
-                      <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      >
-                        <Plus className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7 ml-auto text-destructive hover:text-destructive"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+              {items.map((item) => {
+                const itemKey = `${item.id}-${item.size || "default"}`;
+                return (
+                  <div key={itemKey} className="flex gap-4 p-3 bg-muted/50 rounded-lg">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-20 h-20 object-cover rounded-md"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                        {item.category}
+                      </p>
+                      <h4 className="font-medium text-foreground truncate">{item.name}</h4>
+                      {item.size && (
+                        <p className="text-sm text-muted-foreground">Size: {item.size}</p>
+                      )}
+                      <p className="text-primary font-semibold">{formatPrice(item.price)}</p>
+                      
+                      <div className="flex items-center gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1, item.size)}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1, item.size)}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-7 w-7 ml-auto text-destructive hover:text-destructive"
+                          onClick={() => removeFromCart(item.id, item.size)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="border-t border-border pt-4 space-y-4">
