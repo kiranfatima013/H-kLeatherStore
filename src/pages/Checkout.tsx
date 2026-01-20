@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/data/products";
 import { checkoutSchema, type CheckoutFormData } from "@/lib/validations";
-import { ShoppingBag, CreditCard, Banknote, LogIn } from "lucide-react";
+import { ShoppingBag, Banknote, LogIn, Smartphone } from "lucide-react";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -355,12 +355,22 @@ const Checkout = () => {
                       </Label>
                     </div>
                     <div className="flex items-center space-x-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 mt-3">
-                      <RadioGroupItem value="bank" id="bank" />
-                      <Label htmlFor="bank" className="flex items-center gap-3 cursor-pointer flex-1">
-                        <CreditCard className="w-5 h-5 text-primary" />
+                      <RadioGroupItem value="easypaisa" id="easypaisa" />
+                      <Label htmlFor="easypaisa" className="flex items-center gap-3 cursor-pointer flex-1">
+                        <Smartphone className="w-5 h-5 text-green-600" />
                         <div>
-                          <p className="font-medium">Bank Transfer</p>
-                          <p className="text-sm text-muted-foreground">Transfer to our bank account</p>
+                          <p className="font-medium">EasyPaisa</p>
+                          <p className="text-sm text-muted-foreground">Pay via EasyPaisa mobile wallet</p>
+                        </div>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 mt-3">
+                      <RadioGroupItem value="jazzcash" id="jazzcash" />
+                      <Label htmlFor="jazzcash" className="flex items-center gap-3 cursor-pointer flex-1">
+                        <Smartphone className="w-5 h-5 text-red-500" />
+                        <div>
+                          <p className="font-medium">JazzCash</p>
+                          <p className="text-sm text-muted-foreground">Pay via JazzCash mobile wallet</p>
                         </div>
                       </Label>
                     </div>
