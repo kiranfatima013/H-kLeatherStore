@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/data/products";
-import { CheckCircle, Package, Truck, Clock, ArrowLeft } from "lucide-react";
+import { CheckCircle, Package, Truck, Clock, ArrowLeft, Smartphone, Copy } from "lucide-react";
 
 interface OrderItem {
   product_name: string;
@@ -158,13 +158,63 @@ const OrderConfirmation = () => {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Payment Method</p>
-                <p className="text-foreground capitalize">{order.payment_method === "cod" ? "Cash on Delivery" : "Bank Transfer"}</p>
+                <p className="text-foreground capitalize">
+                  {order.payment_method === "cod" && "Cash on Delivery"}
+                  {order.payment_method === "easypaisa" && "EasyPaisa"}
+                  {order.payment_method === "jazzcash" && "JazzCash"}
+                  {order.payment_method === "bank" && "Bank Transfer"}
+                </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Total Amount</p>
                 <p className="text-lg font-semibold text-primary">{formatPrice(order.total_amount)}</p>
               </div>
             </div>
+
+            {/* Payment Account Details for EasyPaisa/JazzCash */}
+            {(order.payment_method === "easypaisa" || order.payment_method === "jazzcash") && (
+              <div className="border-t border-border pt-4 mb-4">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Smartphone className={`w-5 h-5 ${order.payment_method === "easypaisa" ? "text-green-600" : "text-red-500"}`} />
+                    <h3 className="font-semibold text-foreground">
+                      {order.payment_method === "easypaisa" ? "EasyPaisa" : "JazzCash"} Payment Details
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Please send <span className="font-semibold text-primary">{formatPrice(order.total_amount)}</span> to the following account:
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between bg-background rounded-md p-3 border border-border">
+                      <div>
+                        <p className="text-xs text-muted-foreground">Account Number</p>
+                        <p className="font-mono font-semibold text-foreground">
+                          {order.payment_method === "easypaisa" ? "0300-1234567" : "0301-9876543"}
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          navigator.clipboard.writeText(order.payment_method === "easypaisa" ? "03001234567" : "03019876543");
+                        }}
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between bg-background rounded-md p-3 border border-border">
+                      <div>
+                        <p className="text-xs text-muted-foreground">Account Name</p>
+                        <p className="font-semibold text-foreground">H&K Leather Crafts</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-4">
+                    After sending payment, please share the transaction ID via WhatsApp or include it in your order notes. Your order will be confirmed once payment is verified.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="border-t border-border pt-4">
               <div className="flex items-start gap-3">
