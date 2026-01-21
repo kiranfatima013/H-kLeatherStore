@@ -29,7 +29,6 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <CartSheet />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/products" element={<Products />} />
@@ -45,6 +44,7 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <CartSheet />
           </BrowserRouter>
         </CartProvider>
       </AuthProvider>
