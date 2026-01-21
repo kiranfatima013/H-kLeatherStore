@@ -6,7 +6,19 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/data/products";
-import { Package, Clock, CheckCircle, XCircle, Truck, ChevronRight, ShoppingBag } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Package, Clock, CheckCircle, XCircle, Truck, ChevronRight, ShoppingBag, Ban } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface Order {
   id: string;
@@ -25,47 +37,82 @@ const statusConfig: Record<string, { icon: React.ElementType; label: string; cla
   cancelled: { icon: XCircle, label: "Cancelled", className: "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200" },
 };
 
+// Orders can only be cancelled if they are pending or confirmed
+const cancellableStatuses = ["pending", "confirmed"];
+
 const MyOrders = () => {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
+  const { toast } = useToast();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
+
+  const fetchOrders = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    const { data: ordersData } = await supabase
+      .from("orders")
+      .select("id, created_at, status, total_amount, payment_method")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (ordersData) {
+      // Get item counts for each order
+      const ordersWithCounts = await Promise.all(
+        ordersData.map(async (order) => {
+          const { count } = await supabase
+            .from("order_items")
+            .select("*", { count: "exact", head: true })
+            .eq("order_id", order.id);
+          
+          return { ...order, item_count: count || 0 };
+        })
+      );
+      setOrders(ordersWithCounts);
+    }
+
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
-
-      const { data: ordersData } = await supabase
-        .from("orders")
-        .select("id, created_at, status, total_amount, payment_method")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-
-      if (ordersData) {
-        // Get item counts for each order
-        const ordersWithCounts = await Promise.all(
-          ordersData.map(async (order) => {
-            const { count } = await supabase
-              .from("order_items")
-              .select("*", { count: "exact", head: true })
-              .eq("order_id", order.id);
-            
-            return { ...order, item_count: count || 0 };
-          })
-        );
-        setOrders(ordersWithCounts);
-      }
-
-      setLoading(false);
-    };
-
     if (!authLoading) {
       fetchOrders();
     }
   }, [user, authLoading]);
+
+  const handleCancelOrder = async (orderId: string, e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigation to order details
+    e.stopPropagation();
+    
+    setCancellingOrderId(orderId);
+    
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: "cancelled", updated_at: new Date().toISOString() })
+      .eq("id", orderId)
+      .eq("user_id", user?.id);
+
+    if (error) {
+      toast({
+        title: "Failed to cancel order",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Order Cancelled",
+        description: "Your order has been cancelled successfully.",
+      });
+      // Refresh orders list
+      await fetchOrders();
+    }
+    
+    setCancellingOrderId(null);
+  };
 
   if (authLoading || loading) {
     return (
@@ -117,15 +164,19 @@ const MyOrders = () => {
               {orders.map((order) => {
                 const status = statusConfig[order.status] || statusConfig.pending;
                 const StatusIcon = status.icon;
+                const canCancel = cancellableStatuses.includes(order.status);
+                const isCancelling = cancellingOrderId === order.id;
 
                 return (
-                  <Link
+                  <div
                     key={order.id}
-                    to={`/order-confirmation?order=${order.id}`}
-                    className="block bg-card rounded-lg border border-border p-4 md:p-6 hover:border-primary/50 transition-colors"
+                    className="bg-card rounded-lg border border-border p-4 md:p-6 hover:border-primary/50 transition-colors"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="flex items-start gap-4">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                      <Link
+                        to={`/order-confirmation?order=${order.id}`}
+                        className="flex items-start gap-4 flex-1"
+                      >
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                           <Package className="w-6 h-6 text-primary" />
                         </div>
@@ -145,17 +196,58 @@ const MyOrders = () => {
                             })}
                           </p>
                         </div>
-                      </div>
+                      </Link>
 
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
                         <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm ${status.className}`}>
                           <StatusIcon className="w-4 h-4" />
                           {status.label}
                         </span>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground hidden sm:block" />
+                        
+                        {canCancel && (
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-destructive border-destructive/30 hover:bg-destructive/10 hover:text-destructive"
+                                onClick={(e) => e.stopPropagation()}
+                                disabled={isCancelling}
+                              >
+                                <Ban className="w-4 h-4 mr-2" />
+                                {isCancelling ? "Cancelling..." : "Cancel Order"}
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Cancel Order?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Are you sure you want to cancel order #{order.id.slice(0, 8).toUpperCase()}? 
+                                  This action cannot be undone. Your order of {formatPrice(order.total_amount)} will be cancelled.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Keep Order</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={(e) => handleCancelOrder(order.id, e)}
+                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                >
+                                  Yes, Cancel Order
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        )}
+                        
+                        <Link to={`/order-confirmation?order=${order.id}`}>
+                          <Button variant="ghost" size="sm" className="text-muted-foreground">
+                            View Details
+                            <ChevronRight className="w-4 h-4 ml-1" />
+                          </Button>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
