@@ -66,6 +66,11 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
                 </Link>
               </li>
               <li>
+                <Link to="/shipping-returns" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  Shipping & Returns
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
                   About Us
                 </Link>
