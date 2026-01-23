@@ -9,6 +9,47 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { contactSchema, type ContactFormData } from "@/lib/validations";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const faqItems = [
+  {
+    question: "What are your shipping options and delivery times?",
+    answer: "We offer nationwide shipping across Pakistan. Standard delivery takes 3-5 business days, while express delivery is available for 1-2 business days at an additional cost. International shipping is available to select countries with delivery times of 7-14 business days."
+  },
+  {
+    question: "Do you offer free shipping?",
+    answer: "Yes! We offer free standard shipping on all orders above PKR 10,000 within Pakistan. For orders below this amount, a flat shipping fee of PKR 250 applies."
+  },
+  {
+    question: "What is your return policy?",
+    answer: "We accept returns within 14 days of delivery for unused items in original packaging. Custom-made or personalized items cannot be returned unless defective. Please contact us to initiate a return and receive a prepaid shipping label."
+  },
+  {
+    question: "How do I exchange a product for a different size?",
+    answer: "If you need a different size, contact us within 7 days of receiving your order. We'll arrange for pickup of the original item and ship the new size at no additional cost, subject to availability."
+  },
+  {
+    question: "How should I care for my leather products?",
+    answer: "Keep leather away from direct sunlight and heat. Clean with a soft, dry cloth regularly. Apply leather conditioner every 3-6 months to maintain suppleness. Store in dust bags provided and stuff bags/wallets to maintain shape when not in use."
+  },
+  {
+    question: "Can leather products get wet?",
+    answer: "While our leather is treated for light moisture resistance, avoid prolonged exposure to water. If your product gets wet, pat dry immediately with a soft cloth and let it air dry naturally away from heat sources. Apply conditioner once fully dry."
+  },
+  {
+    question: "Do you offer custom or personalized products?",
+    answer: "Yes! We offer monogramming and custom sizing on select products. Custom orders typically take 2-3 weeks to complete. Contact us for details on customization options and pricing."
+  },
+  {
+    question: "What type of leather do you use?",
+    answer: "We use premium full-grain and top-grain leather sourced from trusted tanneries. Our leather is vegetable-tanned for durability and develops a beautiful patina over time, making each piece unique."
+  }
+];
 
 const Contact = () => {
   const { toast } = useToast();
@@ -213,6 +254,38 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-12 md:py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Find answers to common questions about shipping, returns, and leather care.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqItems.map((item, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`item-${index}`}
+                    className="bg-card rounded-lg border border-border px-6"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>
