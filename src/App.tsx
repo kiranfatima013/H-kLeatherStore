@@ -17,6 +17,7 @@ import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import MyOrders from "./pages/MyOrders";
+import ShippingReturns from "./pages/ShippingReturns";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/order-confirmation" element={<OrderConfirmation />} />
               <Route path="/my-orders" element={<MyOrders />} />
+              <Route path="/shipping-returns" element={<ShippingReturns />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
