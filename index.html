@@ -21,68 +21,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Landbot Custom Styling for H&K Leather Crafts Brand -->
-    <style>
-      /* Landbot launcher button styling */
-      .LandbotLivechat .LivechatLauncher-module--launcher--kHxYb,
-      .LandbotLivechat [class*="LivechatLauncher"] button {
-        background: linear-gradient(135deg, #8B4513 0%, #5D3A1A 100%) !important;
-        box-shadow: 0 4px 20px rgba(139, 69, 19, 0.4) !important;
-        border: 2px solid #D4A574 !important;
-      }
-      
-      .LandbotLivechat .LivechatLauncher-module--launcher--kHxYb:hover,
-      .LandbotLivechat [class*="LivechatLauncher"] button:hover {
-        background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%) !important;
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(139, 69, 19, 0.5) !important;
-      }
-      
-      /* Landbot container positioning */
-      .LandbotLivechat {
-        --landbot-primary: #8B4513;
-        --landbot-accent: #D4A574;
-        z-index: 9999 !important;
-      }
-      
-      /* Chat header styling */
-      .LandbotLivechat [class*="Header"] {
-        background: linear-gradient(135deg, #8B4513 0%, #5D3A1A 100%) !important;
-      }
-      
-      /* Send button styling */
-      .LandbotLivechat [class*="SendButton"],
-      .LandbotLivechat button[type="submit"] {
-        background-color: #8B4513 !important;
-      }
-      
-      .LandbotLivechat [class*="SendButton"]:hover,
-      .LandbotLivechat button[type="submit"]:hover {
-        background-color: #A0522D !important;
-      }
-    </style>
-    
-    <!-- Landbot Chatbot Script -->
-    <script>
-      window.addEventListener('mouseover', initLandbot, { once: true });
-      window.addEventListener('touchstart', initLandbot, { once: true });
-      var myLandbot;
-      function initLandbot() {
-        if (!myLandbot) {
-          var s = document.createElement('script');
-          s.type = "module"
-          s.async = true;
-          s.addEventListener('load', function() {
-            var myLandbot = new Landbot.Livechat({
-              configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-3299523-28Y2I5PT2VL6567P/index.json',
-            });
-          });
-          s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs';
-          var x = document.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-        }
-      }
-    </script>
+  
   </body>
 </html>
