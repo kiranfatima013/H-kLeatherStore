@@ -1,4 +1,4 @@
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/498fc9a2-35e6-4f8a-b89d-2a38d1ac1898" /># 🛍 H&K Leather Store  
+🛍 H&K Leather Store  
 ### AI-Powered E-Commerce Web Application
 
 ![React](https://img.shields.io/badge/Frontend-React-blue)
@@ -10,7 +10,7 @@
 ---
 
 ## 🔗 Live Demo
- [https://your-project.vercel.app](https://h-k-leather-store.vercel.app/)
+[Live Demo](https://h-k-leather-store.vercel.app/)
 
 ---
 
@@ -57,10 +57,8 @@ This project highlights:
 
 ## 📸 Screenshots
 
-> Replace the image links below with your actual screenshots.
-
 ### 🏠 Homepage
-![Homepage Screenshot(./screenshots/homepage.png)
+![Homepage Screenshot](./screenshots/homepage.png)
 
 ### 🛒 Product Listing
 ![Products Screenshot](./screenshots/products.png)
