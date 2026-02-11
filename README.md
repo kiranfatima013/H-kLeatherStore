@@ -82,10 +82,19 @@ This project highlights:
 ## 📂 Project Structure
 
 ```
-/components
-/pages
-/lib
-/public
+public/
+screenshots/
+src/
+supabase/
+.gitignore
+README.md
+bun.lockb
+components.json
+eslint.config.js
+index.html
+package-lock.json
+package.json
+postcss.config.js
 ```
 
 (Adjust if your structure differs.)
