@@ -1,73 +1,166 @@
-# Welcome to your Lovable project
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/498fc9a2-35e6-4f8a-b89d-2a38d1ac1898" /># 🛍 H&K Leather Store  
+### AI-Powered E-Commerce Web Application
 
-## Project info
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue)
+![Supabase](https://img.shields.io/badge/Backend-Supabase-green)
+![Vercel](https://img.shields.io/badge/Deployment-Vercel-black)
+![Status](https://img.shields.io/badge/Project-Production_Ready-brightgreen)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 🔗 Live Demo
+ [https://your-project.vercel.app](https://h-k-leather-store.vercel.app/)
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 📌 Overview
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+H&K Leather Store is an AI-assisted e-commerce web application built using a modern low-code development approach.  
+The project demonstrates how AI tools, frontend frameworks, and backend services can be combined to build a scalable and production-ready online store.
 
-Changes made via Lovable will be committed automatically to this repo.
+This project highlights:
+- Full-stack integration
+- Secure authentication
+- Cloud database usage
+- Deployment best practices
+- AI-assisted development workflow
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Secure user authentication
+- Product listing and dynamic data management
+- Supabase backend integration
+- Responsive UI design
+- Environment-based configuration
+- Production deployment on Vercel
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠 Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Frontend
+- React
+- TypeScript
+- Tailwind CSS
+- Lovable.dev (AI-assisted development)
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Backend
+- Supabase (Database + Authentication)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Deployment
+- Vercel
+
+---
+
+## 📸 Screenshots
+
+> Replace the image links below with your actual screenshots.
+
+### 🏠 Homepage
+![Homepage Screenshot(./screenshots/homepage.png)
+
+### 🛒 Product Listing
+![Products Screenshot](./screenshots/products.png)
+
+### 🔐 Authentication
+![Login Screenshot](./screenshots/login.png)
+
+---
+
+## 🧠 What This Project Demonstrates
+
+- AI-assisted web application development
+- Secure role-based authentication handling
+- Backend API integration
+- Cloud database management
+- Clean deployment pipeline
+- Structured, scalable project architecture
+
+---
+
+## 📂 Project Structure
+
+```
+/components
+/pages
+/lib
+/public
+```
+
+(Adjust if your structure differs.)
+
+---
+
+## ⚙️ Installation & Local Setup
+
+### 1️⃣ Clone the repository
+
+```
+git clone https://github.com/kiranfatima013/H-kLeatherStore.git
+cd H-kLeatherStore
+```
+
+### 2️⃣ Install dependencies
+
+```
+npm install
+```
+
+### 3️⃣ Configure Environment Variables
+
+Create a `.env.local` file and add:
+
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_key
+```
+
+### 4️⃣ Run locally
+
+```
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Application will run on:
+```
+http://localhost:3000
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 🌍 Deployment
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The application is deployed using **Vercel** with:
 
-## What technologies are used for this project?
+- Environment variables configuration
+- Optimized production build
+- Secure Supabase integration
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📈 Future Enhancements
 
-## How can I deploy this project?
+- Payment gateway integration
+- Admin dashboard
+- Order management system
+- AI-based product recommendations
+- Performance optimization improvements
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+## 👩‍💻 Author
 
-Yes, you can!
+**Kiran Fatima**  
+AI Automation & Generative AI Enthusiast  
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+GitHub: https://github.com/kiranfatima013  
+LinkedIn: Add your LinkedIn URL here  
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
